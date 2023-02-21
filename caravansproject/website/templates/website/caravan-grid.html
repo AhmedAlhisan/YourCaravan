@@ -1,0 +1,159 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block search %}
+<div class="box-collapse">
+  <div class="title-box-d">
+    <h3 class="title-d">Search caravans</h3>
+  </div>
+  <span class="close-box-collapse right-boxed ion-ios-close"></span>
+  <div class="box-collapse-wrap form">
+    <form action="" method="get" class="form-a">
+      <div class="row">
+        <div class="col-md-12 mb-2">
+          <div class="form-group">
+            <label for="Type">Keyword</label>
+            <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="form-group">
+            
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="form-group">
+           
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="form-group">
+           
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="form-group">
+           
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="form-group">
+           
+          </div>
+        </div>
+        <div class="col-md-6 mb-2">
+          <div class="form-group">
+            
+          </div>
+        </div>
+        <div class="col-md-12">
+          <button name="search" type="submit" class="btn btn-b">Search for caravan</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}
+{%  block search-bt  %}
+<form action="" method="get" class="form-a">
+  {% csrf_token %}
+  <label for="Type">Search for caravans</label>
+  <input name="search" type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+</form>
+
+{% endblock %}
+
+
+
+
+{% block content %}
+
+
+  <!--/ Intro Single star /-->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">Our Amazing Caravans</h1>
+            <span class="color-text-a">All Caravans</span>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="#">Home</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                Caravans
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Intro Single End /-->
+
+  <!--/ Property Grid Star /-->
+  <section class="property-grid grid">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="grid-option">
+           
+          </div>
+        </div>
+        {% for i in all_carvans  %}
+        <div class="col-md-4">
+          <div class="card-box-a card-shadow">
+            <div class="img-box-a">
+              <img src="{{ i.feature_image.url }}" alt="" class="img-a img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-overlay-a-content">
+                <div class="card-header-a">
+                  <h2 class="card-title-a">
+                    <a href="{% url 'website:caravan-detailes' i.id %}">
+                      <br /> {{ i.name }}</a>
+                  </h2>
+                </div>
+                <div class="card-body-a">
+                  <div class="price-box d-flex">
+                    <span class="price-a">rent | SAR {{i.price}}</span>
+                  </div>
+                  <a href="property-single.html" class="link-a">Click here to view
+                    <span class="ion-ios-arrow-forward"></span>
+                  </a>
+                </div>
+                <div class="card-footer-a">
+                  <ul class="card-info d-flex justify-content-around">
+                    <li>
+                      <h4 class="card-info-title">Food</h4>
+                      <span>
+                        <sup></sup>
+                      </span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Drinks</h4>
+                      <span></span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">WI-FI</h4>
+                      <span></span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">personal Driver</h4>
+                      <span></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+  </section>
+  <!--/ Property Grid End /-->
+
+  {% endblock %}
