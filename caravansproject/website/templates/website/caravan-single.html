@@ -39,7 +39,7 @@
         <div class="col-sm-12">
           <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
             <div class="carousel-item-b">
-              <img src="{{assigend_caravan.feature_image.url}}" alt="">
+              <img width="500px" height="1100px" src="{{assigend_caravan.feature_image.url}}" alt="">
             </div>
            
           </div>
@@ -48,7 +48,7 @@
               <div class="property-price d-flex justify-content-center foo">
                 <div class="card-header-c d-flex">
                   <div class="card-box-ico">
-                    <span class="ion-money">$</span>
+                    <span class="ion-money">SAR</span>
                   </div>
                   <div class="card-title-c align-self-center">
                     <h5 class="title-c">{{assigend_caravan.price}}</h5>
@@ -98,21 +98,28 @@
               <div class="row">
                 <div class="col-sm-12">
                   <div class="title-box-d">
-                    <h3 class="title-d">{{assigend_caravan.name}}</h3>
+                    <h3 class="title-d">name : {{assigend_caravan.name}}</h3>
                   </div>
                 </div>
               </div>
               <div class="property-description">
                 <p class="description color-text-a">
-                  {{assigend_caravan.description}}
+                  Description : {{assigend_caravan.description}}
                 </p>
                 <p class="description color-text-a no-margin">
-                
+                capacit <i class="bi bi-people-fill"></i>: {{assigend_caravan.capacity}}
                 </p>
+                
               </div>
+              
              
               </div>
+              <div class="col-md-12">
+                <a href="{% url 'website:booking' assigend_caravan.id %}"><button type="submit" class="btn btn-a">Book Now</button></a>
+              </div>
+              
             </div>
+            
           </div>
         </div>
        
@@ -120,7 +127,7 @@
           <div class="row section-t3">
             <div class="col-sm-12">
               <div class="title-box-d">
-                <h3 class="title-d">Contact Agent</h3>
+                <h3 class="title-d">OR Contact us for more information ..</h3>
               </div>
             </div>
           </div>

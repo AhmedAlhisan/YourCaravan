@@ -14,8 +14,8 @@ class Caravan (models.Model):
 
 
 class Booking(models.Model):
-    appointmentUser = models.ForeignKey(User,on_delete=models.CASCADE)
+    bookinUser = models.ForeignKey(User,on_delete=models.CASCADE)
     caravan = models.ForeignKey(Caravan, on_delete=models.CASCADE)
     Note=models.TextField()
     booking_date = models.DateTimeField()
-    is_payed = models.BooleanField(default=True)
+    
