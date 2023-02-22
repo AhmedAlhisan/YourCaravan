@@ -53,7 +53,7 @@ def activate(request, uidb64, token):
         user.save()
 
         messages.success(request, 'Thank you for your email confirmation. Now you can login your account.')
-        return redirect('website:home-page')
+        return redirect('account:login')
     else:
         messages.error(request, 'Activation link is invalid!')
     
@@ -72,14 +72,14 @@ def login_page(request :HttpRequest):
                 login(request, user)
                 return redirect('website:home-page')
             else:
-                print('TEST')
-                messages.info(request, 'Inactive user')
-                return redirect('account:register')
+                
+                messages.info(request, 'Inactive user , please check your email')
+                return redirect('account:login')
         else:
             messages.error(request, 'Invalid username/password!')
-        return redirect('account:register')
-    else:
-        return render(request, 'account/login.html', {})
+        return redirect('account:login')
+    
+    return render(request, 'account/login.html', {})
     
 
 
@@ -88,4 +88,4 @@ def login_page(request :HttpRequest):
     
 def log_out_user(request :HttpRequest):
     logout(request)
-    return redirect('main:home_page')    
+    return redirect('website:home-page')    

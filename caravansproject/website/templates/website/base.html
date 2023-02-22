@@ -67,6 +67,7 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'website:all-caravans' %}">Caravans</a>
           </li>
+          
          
           
             
@@ -74,8 +75,26 @@
           <li class="nav-item">
             <a class="nav-link" href="contact.html">Contact</a>
           </li>
+          {% if request.user.is_authenticated %}
+          <li class="nav-item">
+           <a class="nav-link" href="{% url 'account:logout' %}">logout</a>
+         </li>
+         {% else %}
+         <li class="nav-item">
+           <a class="nav-link" href="{% url 'account:login' %}">login</a>
+         </li>
+          
+          {% endif %}
         </ul>
       </div>
+      {% if messages %}
+      {% for i in messages %}
+      <div class="alert alert-success" role="alert">
+           {{ i }}
+         </div>
+           
+      {% endfor %}
+      {% endif %}
       {%  block search-bt  %}
      
       {% endblock %}

@@ -1,0 +1,78 @@
+
+{% extends 'website/base.html' %}  
+
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+{% if messages %}
+{% for i in messages %}
+<div class="alert alert-success" role="alert">
+     {{ i }}
+   </div>
+     
+{% endfor %}
+{% endif %}
+
+
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+      <div class="container">
+        <div class="row gx-lg-5 align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="my-5 display-3 fw-bold ls-tight">
+              The best offer <br />
+              <span class="text-success">for  Caravans</span>
+            </h1>
+            <p style="color: hsl(217, 10%, 50.8%)">
+            
+            </p>
+          </div>
+  
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card">
+              <div class="card-body py-5 px-md-5">
+                <form action="" method="post">
+                    {% csrf_token %}
+                  <!-- 2 column grid layout with text inputs for the first and last names -->
+                  <div class="row">
+                    
+                    <div class="col-md-6 mb-4">
+                      
+                  </div>
+  
+                  <!-- Email input -->
+                  <div class="form-outline mb-4">
+                    <input name="username" type="text" id="form3Example3" class="form-control" />
+                    <label class="form-label" for="form3Example3">username</label>
+                  </div>
+  
+                  <!-- Password input -->
+                  <div class="form-outline mb-4">
+                    <input name="password" type="password" id="form3Example4" class="form-control" />
+                    <label class="form-label" for="form3Example4">Password</label>
+                  </div>
+  
+                  <!-- Checkbox -->
+                  
+  
+                  <!-- Submit button -->
+                  <button type="submit" class="btn btn-success btn-block mb-4">
+                    Sign in
+                  </button>
+  
+                  <!-- Register buttons -->
+                  <div class="text-center">
+                    <p>or sign up here</p>
+                    <button type="button" class="btn btn-link btn-floating mx-1">
+                        <a href="{% url 'account:register' %}"><i class="bi bi-person-add" style="font-size: 2rem; color: rgb(39, 219, 114);"></i></a>
+                    </button>
+                 
+    <!-- Jumbotron -->
+  </section>
+{% endblock %}
