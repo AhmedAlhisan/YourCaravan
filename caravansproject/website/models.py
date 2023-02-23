@@ -9,6 +9,7 @@ class Caravan (models.Model):
     description = models.TextField()
     price = models.IntegerField()
     capacity = models.IntegerField()
+    owner = models.ForeignKey(User,on_delete=models.CASCADE)
    
 
 
@@ -16,6 +17,12 @@ class Caravan (models.Model):
 class Booking(models.Model):
     bookinUser = models.ForeignKey(User,on_delete=models.CASCADE)
     caravan = models.ForeignKey(Caravan, on_delete=models.CASCADE)
-    Note=models.TextField()
+    note=models.TextField()
     booking_date = models.DateTimeField()
     
+
+class ContactUs(models.Model):
+    sender = models.ForeignKey(User, on_delete=models.CASCADE)
+    email = models.EmailField(max_length=512)
+    content = models.TextField()
+    date = models.DateField(auto_now_add=True)    

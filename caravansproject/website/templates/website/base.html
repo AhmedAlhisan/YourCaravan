@@ -71,9 +71,9 @@
          
           
             
-         
+        
           <li class="nav-item">
-            <a class="nav-link" href="contact.html">Contact</a>
+            <a class="nav-link" href="{% url 'website:showBook' %}">show Book</a>
           </li>
           {% if request.user.is_authenticated %}
           <li class="nav-item">
@@ -87,14 +87,8 @@
           {% endif %}
         </ul>
       </div>
-      {% if messages %}
-      {% for i in messages %}
-      <div class="alert alert-success" role="alert">
-           {{ i }}
-         </div>
-           
-      {% endfor %}
-      {% endif %}
+   
+   
       {%  block search-bt  %}
      
       {% endblock %}

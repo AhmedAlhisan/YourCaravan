@@ -2,6 +2,10 @@ from django.shortcuts import render , redirect
 from django.http import HttpRequest, HttpResponse
 from . models import Caravan , Booking
 from django.contrib import messages
+import stripe
+from django.conf import settings
+from django.views import View
+
 
 # Create your views here.
 
@@ -26,7 +30,7 @@ def bookCaravan(request :HttpRequest , caravan_id):
         if request.method == 'POST':
              
             assigend_caravan = Caravan.objects.get(id=caravan_id)
-            new_book = Booking(bookinUser = request.user , caravan = assigend_caravan ,Note=request.POST['Note'],booking_date = request.POST['booking_date'] )
+            new_book = Booking(bookinUser = request.user , caravan = assigend_caravan ,note=request.POST['Note'],booking_date = request.POST['booking_date'] )
             check_dateTime = Booking.objects.filter(booking_date = request.POST['booking_date'])
             
             if check_dateTime :
@@ -34,11 +38,21 @@ def bookCaravan(request :HttpRequest , caravan_id):
 
             else:      
                 new_book.save()
-                messages.success(request, 'Your booking is succesfuly Done , Thank you')
+                messages.success(request, 'Your booking is succesfuly Done , Thank you ')
                 return redirect('website:home-page')
             
             
     return render(request,'website/book-caravan.html')
+
+
+def showUserbook(request : HttpRequest ):
+    if request.user.is_authenticated:
+        bookinUser = request.user.get_username    
+        show_booked = Booking.objects.filter(bookinUser = request.user.id)
+        return render(request , 'website/show-user-book.html', {'show_booked':show_booked , 'bookinUser':bookinUser})
+    return redirect('patient:signin')
+
+
 
 
 
