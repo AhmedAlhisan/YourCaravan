@@ -1,0 +1,75 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block search %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+      <div class="container">
+        <div class="row gx-lg-5 align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="my-5 display-3 fw-bold ls-tight">
+              add  <br />
+              <span class="text-success">caravan</span>
+            </h1>
+            <p style="color: hsl(217, 10%, 50.8%)">
+            
+            </p>
+          </div>
+  
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card">
+              <div class="card-body py-5 px-md-5">
+                  
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+  
+      <div class="mt-3">
+        <label class="form-label">name</label>
+        <input type="text" name="name" class="form-control" />
+      </div>
+      <div class="mt-3">
+          <label>Choose File:</label>
+          <input type="file" name="feature_image" class="form-control"/>
+        </div>
+  
+      <div class="mt-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" name="description"></textarea>
+      </div>
+  
+      <div class="mt-3">
+        <label class="form-label">price</label>
+        <input type="number" name="price" class="form-control" />
+        
+        </div>
+      <div class="mt-3">
+        <label class="form-label">capacity</label>
+        <input type="number" name="capacity" class="form-control" />
+        
+        </div>
+      
+        
+  
+        <br>
+        <br>
+        <input type="submit" class="btn btn-success" value="new Caravan" />
+  
+      
+  
+  </form>
+                 
+  
+                 
+                 
+    <!-- Jumbotron -->
+  </section>
+
+{% endblock %}

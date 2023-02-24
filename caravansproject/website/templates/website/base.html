@@ -82,9 +82,20 @@
          {% else %}
          <li class="nav-item">
            <a class="nav-link" href="{% url 'account:login' %}">login</a>
+          
          </li>
+         
+          
           
           {% endif %}
+          
+          <!-- this only for admin -->
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'website:addcaravan' %}">add new caravan</a>
+          </li>
+          
+          
+
         </ul>
       </div>
    

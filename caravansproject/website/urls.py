@@ -9,6 +9,10 @@ urlpatterns = [
     path('caravan/<caravan_id>' , views.show_details_of_caravans , name='caravan-detailes'),
     path('booking/<caravan_id>',views.bookCaravan ,name='booking'),
     path('showBook/', views.showUserbook , name='showBook'),
+    path('addCaravan/' , views.addCaravan , name='addcaravan'),
+    path('editcaravan/<caravan_id>',views.updateCaravan ,name='update'),
+    path('delete/<caravan_id>',views.deleteCaravan, name='delete')
+
     
     
 ]

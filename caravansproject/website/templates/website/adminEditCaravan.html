@@ -1,0 +1,85 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block search %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<section class="">
+    <!-- Jumbotron -->
+    <div class="px-4 py-5 px-md-5 text-center text-lg-start" style="background-color: hsl(0, 0%, 96%)">
+      <div class="container">
+        <div class="row gx-lg-5 align-items-center">
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <h1 class="my-5 display-3 fw-bold ls-tight">
+              add  <br />
+              <span class="text-success">caravan</span>
+            </h1>
+            <p style="color: hsl(217, 10%, 50.8%)">
+            
+            </p>
+          </div>
+  
+          <div class="col-lg-6 mb-5 mb-lg-0">
+            <div class="card">
+              <div class="card-body py-5 px-md-5">
+                  
+    <form action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+  
+      <div class="mt-3">
+        <label class="form-label">name</label>
+        <input value="{{selected_caravan.name}}" type="text" name="name" class="form-control" />
+      </div>
+      <div class="mt-3">
+          <label>Choose File:</label>
+          <input value="{{selected_caravan.feature_image}}" type="file" name="feature_image" class="form-control"/>
+        </div>
+  
+      <div class="mt-3">
+        <label class="form-label">Description</label>
+        <textarea class="form-control" name="description">{{selected_caravan.description}}</textarea>
+      </div>
+  
+      <div class="mt-3">
+        <label class="form-label">price</label>
+        <input value="{{selected_caravan.price}}" type="number" name="price" class="form-control" />
+        
+        </div>
+      <div class="mt-3">
+        <label class="form-label">capacity</label>
+        <input value="{{selected_caravan.capacity}}" type="number" name="capacity" class="form-control" />
+        
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Caravan Status :</label>
+            <select name="is_attended" value="{{updated_appointment.is_attended}}" class="form-select" aria-label="Default select example">
+                <option>Open this select menu</option>
+                <option value="1" {% if selected_caravan.carvan_status == yes %} selected {% endif %}>yes</option>
+                <option value="0" {% if selected_caravan.carvan_status == no %} selected {% endif %}>no</option>
+                
+              </select>
+            </div>
+      
+        
+  
+        <br>
+        <br>
+        <input type="submit" class="btn btn-success" value="new Caravan" />
+  
+      
+  
+  </form>
+                 
+  
+                 
+                 
+    <!-- Jumbotron -->
+  </section>
+
+{% endblock %}

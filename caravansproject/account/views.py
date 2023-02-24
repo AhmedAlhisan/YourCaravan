@@ -73,7 +73,7 @@ def login_page(request :HttpRequest):
                 return redirect('website:home-page')
             else:
                 
-                messages.info(request, 'Inactive user , please check your email')
+                messages.error(request, 'Inactive user , please check your email')
                 return redirect('account:login')
         else:
             messages.error(request, 'Invalid username/password!')

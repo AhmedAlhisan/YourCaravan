@@ -10,6 +10,9 @@ class Caravan (models.Model):
     price = models.IntegerField()
     capacity = models.IntegerField()
     owner = models.ForeignKey(User,on_delete=models.CASCADE)
+    carvan_status=models.BooleanField(default=False)
+    def __str__(self) :
+        return self.name
    
 
 
