@@ -54,11 +54,7 @@
 </div>
 {% endblock %}
 {%  block search-bt  %}
-<form action="" method="get" class="form-a">
-  {% csrf_token %}
-  <label for="Type">Search for caravans</label>
-  <input name="search" type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
-</form>
+
 
 {% endblock %}
 
@@ -88,6 +84,11 @@
                 Caravans
               </li>
             </ol>
+            <form action="" method="get" class="form-a">
+              {% csrf_token %}
+              <label for="Type">Search for caravans</label>
+              <input name="search" type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword">
+            </form>
           </nav>
         </div>
       </div>

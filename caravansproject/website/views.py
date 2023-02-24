@@ -13,10 +13,11 @@ def homePage(request :HttpRequest):
     return render(request , 'website/home.html')
 
 def caravanList(request :HttpRequest):
+    
     if 'search' in request.GET:
-        all_carvans = Caravan.objects.filter(name__contains=request.GET["search"])
+        all_carvans = Caravan.objects.filter(name__contains=request.GET["search"]).filter(carvan_status = True)
     else:
-        all_carvans = Caravan.objects.all()
+        all_carvans = Caravan.objects.filter(carvan_status = True)
         
     return render(request , 'website/caravan-grid.html' , {'all_carvans':all_carvans})
 
