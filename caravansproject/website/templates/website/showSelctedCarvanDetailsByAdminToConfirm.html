@@ -1,6 +1,14 @@
 {% extends 'website/base.html' %}
 {% load static %}
 {% block content %}
+{% if messages %}
+{% for i in messages %}
+<div class="alert alert-success" role="alert">
+     {{ i }}
+   </div>
+     
+{% endfor %}
+{% endif %}
 
   <!--/ Intro Single star /-->
   <section class="intro-single">

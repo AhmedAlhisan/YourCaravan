@@ -1,0 +1,49 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Show status <h1>this caravan for : {{request.user.username}}</h1>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Caravan Name</th>
+      <th scope="col">price</th>
+      <th scope="col">capacity</th>
+      <th scope="col">Caravan status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in inestor_user_caravan %}
+    <tr>
+      <th scope="row">#</th>
+      <td> {{ i.name }} </td>
+      <td>{{ i.price }}</td>
+      <td>{{ i.capacity }}</td>
+     
+      
+      <td>
+        {% if i.carvan_status == 0 %}
+        <span class="badge badge-danger">Pending</span>
+        {% else %}
+        <span class="badge badge-success">Success</span>
+      </td>
+      {% endif %}
+    </tr>
+    {% endfor %}
+   
+   
+  </tbody>
+</table>
+
+{% endblock %}

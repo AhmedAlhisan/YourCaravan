@@ -3,6 +3,7 @@
 
 {% block content %}
 
+
   <!--/ Carousel Star /-->
   <div class="intro intro-carousel">
     <div id="carousel" class="owl-carousel owl-theme">
@@ -78,6 +79,15 @@
     </div>
   </div>
   <!--/ Carousel end /-->
+
+  {% if messages %}
+{% for i in messages %}
+<div class="alert alert-success" role="alert">
+    <h3> style="align-items: center;" >{{ i }}</h3> 
+   </div>
+     
+{% endfor %}
+{% endif %}
   
 
   <!--/ Services Star /-->

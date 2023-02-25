@@ -17,6 +17,8 @@ urlpatterns = [
     path('showOnePending/<caravan_id>', views.showSelctedCarvanDetailsByAdminToConfirm , name='pendingCaravan'),
     path("confirmCaravan/<caravan_id>" , views.confirmCaravan , name='confirmation'),
     path("rejectCaravan/<caravan_id>" , views.rejectCaravan , name='reject'),
+    path('showCaravanStatusUser' , views.showCaravanStatusUser , name='showCaravanStatusUser'),
+    path('adminManagAllCravanBook/<caravan_id>',views.adminManagAllCravanBook , name='adminManageBook')
 
      
     

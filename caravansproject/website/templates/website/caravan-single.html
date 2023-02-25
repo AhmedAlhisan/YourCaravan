@@ -116,8 +116,11 @@
               </div>
               <div class="col-md-12">
                 <a href="{% url 'website:booking' assigend_caravan.id %}"><button type="submit" class="btn btn-a">Book Now</button></a>
+                {% if request.user.is_staff %}
                 <a href="{% url 'website:update' assigend_caravan.id %}"><button type="submit" class="btn btn-a">edit</button></a>
                 <a href="{% url 'website:delete' assigend_caravan.id %}"><button type="submit" class="btn btn-a">delete</button></a>
+                <a href="{% url 'website:adminManageBook' assigend_caravan.id %}"><button type="submit" class="btn btn-a">Manage Book</button></a>
+                {% endif %}
               </div>
               
             </div>

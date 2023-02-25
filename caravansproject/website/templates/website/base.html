@@ -101,7 +101,7 @@
             </a>
           
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#">control Caravans & appontment</a></li>
+              <li><a class="dropdown-item" href="{% url 'website:all-caravans' %}">control Caravans & appontment</a></li>
               <li><a class="dropdown-item" href="{% url 'website:PendingCaravans' %}">confirm Users Caravan</a></li>
               <li><a class="dropdown-item" href="#">users control</a></li>
               <li class="nav-item">
@@ -109,7 +109,26 @@
               </li>
             </ul>
           </div>
+          
           {% endif %}
+
+          {% for group in request.user.groups.all %}
+            {% if group.name == 'user-Investor' %}
+            <div class="dropdown">
+              <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+                investor : {{request.user}}
+              </a>
+            
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+               
+                <li><a class="nav-link" href="{% url 'website:showCaravanStatusUser' %}">Caravan status</a></li>
+         
+                
+              </ul>
+            </div>
+            
+            {% endif %}
+            {% endfor %}
           
           
 

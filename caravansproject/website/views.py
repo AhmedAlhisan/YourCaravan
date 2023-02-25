@@ -2,7 +2,7 @@ from django.shortcuts import render , redirect
 from django.http import HttpRequest, HttpResponse
 from . models import Caravan , Booking , ContactUs
 from django.contrib import messages
-
+from django.contrib.auth.models import Group , User 
 from django.conf import settings
 
 
@@ -38,6 +38,8 @@ def addCaravanuser(request :HttpRequest):
         if request.method == 'POST':
             new_caravan=Caravan(name=request.POST['name'],feature_image=request.FILES['feature_image'],description=request.POST['description'],price=request.POST['price'],capacity=request.POST['capacity'],owner=request.user, carvan_status=False)
             new_caravan.save()
+            investor_group = Group.objects.get(name='user-Investor')
+            request.user.groups.add(investor_group)
         return render(request , 'website/adminAddCaravan.html')
     return redirect('account:login')        
 
@@ -130,7 +132,20 @@ def rejectCaravan(request : HttpRequest , caravan_id):
         assigend_caravan  =Caravan.objects.get(id=caravan_id)
         assigend_caravan.delete()
         messages.success(request , 'caravan status is Un-Active and rejected' )
-        return redirect('website:home-page')    
+        return redirect('website:home-page')
+
+
+def showCaravanStatusUser(request : HttpRequest):
+    inestor_user_caravan = Caravan.objects.filter(  owner = request.user.id)
+    return render(request , 'website/userAddCaravanStatus.html' , {'inestor_user_caravan':inestor_user_caravan})
+
+def adminManagAllCravanBook(request : HttpRequest , caravan_id):
+    if request.user.is_staff:
+        assigend_caravan = Caravan.objects.get(id = caravan_id)
+        all_users_booking = Booking.objects.filter(caravan = assigend_caravan)
+        return render(request , 'website/showAllUsersBookInEachCaravan.html' , {'all_users_booking':all_users_booking ,'assigend_caravan':assigend_caravan })
+    return redirect('website:home')
+            
     
    
         
