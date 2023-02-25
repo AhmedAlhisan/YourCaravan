@@ -44,8 +44,10 @@ def addCaravanuser(request :HttpRequest):
     return redirect('account:login')        
 
 def show_details_of_caravans(request :HttpRequest , caravan_id):
-    assigend_caravan = Caravan.objects.get(id = caravan_id)
-    return render(request , 'website/caravan-single.html' , {'assigend_caravan':assigend_caravan})
+    if request.user.is_authenticated:
+        assigend_caravan = Caravan.objects.get(id = caravan_id)
+        return render(request , 'website/caravan-single.html' , {'assigend_caravan':assigend_caravan})
+    return redirect('account:login')
 
 def bookCaravan(request :HttpRequest , caravan_id):
     if request.user.is_authenticated:
@@ -145,6 +147,8 @@ def adminManagAllCravanBook(request : HttpRequest , caravan_id):
         all_users_booking = Booking.objects.filter(caravan = assigend_caravan)
         return render(request , 'website/showAllUsersBookInEachCaravan.html' , {'all_users_booking':all_users_booking ,'assigend_caravan':assigend_caravan })
     return redirect('website:home')
+
+
             
     
    

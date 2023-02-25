@@ -143,6 +143,20 @@
     </div>
   </nav>
   <!--/ Nav End /-->
+  <br>
+  <br>
+  <br>
+  <br>
+
+ 
+  {% if messages %}
+{% for i in messages %}
+<div class="alert alert-success" role="alert">
+    <h3 style="align-items: center;">  {{ i }}</h3> 
+   </div>
+     
+{% endfor %}
+{% endif %}
   {% block content %}
 
   {% endblock %}
