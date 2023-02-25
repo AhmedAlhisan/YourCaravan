@@ -68,11 +68,9 @@
             <a class="nav-link" href="{% url 'website:all-caravans' %}">Caravans</a>
           </li>
           
+        
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:addcaravan' %}">add caravan</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'website:addcaravan' %}">contact</a>
+            <a class="nav-link" href="{% url 'website:addcaravanuser' %}">add caravan</a>
           </li>
           
             
@@ -103,9 +101,12 @@
             </a>
           
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="#">control Caravans & appontment</a></li>
+              <li><a class="dropdown-item" href="{% url 'website:PendingCaravans' %}">confirm Users Caravan</a></li>
+              <li><a class="dropdown-item" href="#">users control</a></li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'website:addcaravanadmin' %}">add caravan</a>
+              </li>
             </ul>
           </div>
           {% endif %}

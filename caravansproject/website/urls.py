@@ -9,9 +9,17 @@ urlpatterns = [
     path('caravan/<caravan_id>' , views.show_details_of_caravans , name='caravan-detailes'),
     path('booking/<caravan_id>',views.bookCaravan ,name='booking'),
     path('showBook/', views.showUserbook , name='showBook'),
-    path('addCaravan/' , views.addCaravan , name='addcaravan'),
+    path('addCaravanAdmin/' , views.addCaravanAdmin , name='addcaravanadmin'),
+    path('addCaravanUser/' , views.addCaravanuser , name='addcaravanuser'),
     path('editcaravan/<caravan_id>',views.updateCaravan ,name='update'),
-    path('delete/<caravan_id>',views.deleteCaravan, name='delete')
+    path('delete/<caravan_id>',views.deleteCaravan, name='delete'),
+    path('showAllPending/' , views.showNeedConfirmationCaravans,name='PendingCaravans'),
+    path('showOnePending/<caravan_id>', views.showSelctedCarvanDetailsByAdminToConfirm , name='pendingCaravan'),
+    path("confirmCaravan/<caravan_id>" , views.confirmCaravan , name='confirmation'),
+    path("rejectCaravan/<caravan_id>" , views.rejectCaravan , name='reject'),
+
+     
+    
 
     
     

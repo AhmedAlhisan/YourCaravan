@@ -1,0 +1,44 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Caravans Need confirmation <h1></h1>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">pricee</th>
+      <th scope="col">capacity</th>
+      <th scope="col">owner</th>
+      <th scope="col">carvan status</th>
+      <th scope="col">Destails</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in pending_caravan %}
+    <tr>
+      <th scope="row">#-</th>
+      <td> {{ i.price }} </td>
+      <td>{{ i.capacity }}</td>
+      <td>{{ i.owner }}</td>
+      <td>{{ i.carvan_status }}</td>
+      <td><a href="{% url 'website:pendingCaravan' i.id %}"><button type="button" class="btn btn-info">Info</button></a></td>
+        
+    </tr>
+    {% endfor %}
+   
+   
+  </tbody>
+</table>
+
+{% endblock %}

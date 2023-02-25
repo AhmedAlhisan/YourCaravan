@@ -21,13 +21,25 @@ def caravanList(request :HttpRequest):
         
     return render(request , 'website/caravan-grid.html' , {'all_carvans':all_carvans})
 
-def addCaravan(request :HttpRequest):
+def addCaravanAdmin(request :HttpRequest):
+    '''this function will allow admin to add th caravan directly without confirmation'''
     '''add new caravan by admin '''
     if request.user.is_staff:
         if request.method == 'POST':
             new_caravan=Caravan(name=request.POST['name'],feature_image=request.FILES['feature_image'],description=request.POST['description'],price=request.POST['price'],capacity=request.POST['capacity'],owner=request.user, carvan_status=True)
             new_caravan.save()
-        return render(request , 'website/adminAddCaravan.html')    
+        return render(request , 'website/adminAddCaravan.html') 
+    return redirect('account:login')
+
+def addCaravanuser(request :HttpRequest):
+    '''this function will allow users to add the caravan but still need  confirmation from admin'''
+    '''add new caravan by user '''
+    if request.user.is_authenticated:
+        if request.method == 'POST':
+            new_caravan=Caravan(name=request.POST['name'],feature_image=request.FILES['feature_image'],description=request.POST['description'],price=request.POST['price'],capacity=request.POST['capacity'],owner=request.user, carvan_status=False)
+            new_caravan.save()
+        return render(request , 'website/adminAddCaravan.html')
+    return redirect('account:login')        
 
 def show_details_of_caravans(request :HttpRequest , caravan_id):
     assigend_caravan = Caravan.objects.get(id = caravan_id)
@@ -83,11 +95,50 @@ def updateCaravan(request : HttpRequest , caravan_id):
     return redirect('website:home-page')
 
 def deleteCaravan(request: HttpRequest , caravan_id):
+    
+        if request.user.is_staff:
+            selected_caraven = Caravan.objects.get(id=caravan_id)
+            selected_caraven.delete()   
+            messages.success(request , 'selected Caravan , deleted succesfuly')
+            return redirect('website:home-page')   
+
+def showNeedConfirmationCaravans(request : HttpRequest):
+    '''this function will show all caravans poted by users , and admin need to confirm this caravans to show four public'''
     if request.user.is_staff:
-        selected_caraven = Caravan.objects.get(id=caravan_id)
-        selected_caraven.delete()   
-        messages.success(request , 'selected Caravan , deleted succesfuly')
-        return redirect('website:home-page')        
+        pending_caravan=Caravan.objects.filter(carvan_status = False)
+        return render(request , 'website/AdminShowAllpending.html' , {'pending_caravan':pending_caravan})
+    return redirect('account:login')
+
+def showSelctedCarvanDetailsByAdminToConfirm(request : HttpRequest , caravan_id):
+    '''show detailes of one pending caravan'''
+    if request.user.is_staff:
+        assigend_caravan = Caravan.objects.get(id = caravan_id)
+        return render(request , 'website/showSelctedCarvanDetailsByAdminToConfirm.html' , {'assigend_caravan':assigend_caravan} )
+
+
+def confirmCaravan(request : HttpRequest , caravan_id):
+    '''confirmation the caravan'''
+    if request.user.is_staff:        
+        assigend_caravan = Caravan.objects.get(id=caravan_id)
+        assigend_caravan.carvan_status=True
+        assigend_caravan.save()
+        messages.success(request , 'caravan Status is now Active and accepted')
+        return redirect('website:home-page')
+def rejectCaravan(request : HttpRequest , caravan_id):
+    '''reject Caravan and delete it'''
+    if request.user.is_staff:
+        assigend_caravan  =Caravan.objects.get(id=caravan_id)
+        assigend_caravan.delete()
+        messages.success(request , 'caravan status is Un-Active and rejected' )
+        return redirect('website:home-page')    
+    
+   
+        
+
+
+
+
+
 
 
 
