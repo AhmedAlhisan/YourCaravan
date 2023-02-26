@@ -11,6 +11,7 @@ from django.core.mail import send_mail
 # Create your views here.
 
 def homePage(request :HttpRequest):
+    
     return render(request , 'website/home.html')
 
 def caravanList(request :HttpRequest):
@@ -76,6 +77,12 @@ def bookCaravan(request :HttpRequest , caravan_id):
             
     return render(request,'website/book-caravan.html')
 
+
+
+ 
+    
+
+    
 
 def showUserbook(request : HttpRequest ):
     if request.user.is_authenticated:
@@ -149,7 +156,20 @@ def rejectCaravan(request : HttpRequest , caravan_id):
     if request.user.is_staff:
         assigend_caravan  =Caravan.objects.get(id=caravan_id)
         assigend_caravan.delete()
+        is_user_have_another_caravar =Caravan.objects.filter(owner = assigend_caravan.owner)  #here i will check if the user not have any caravan i will remove him from investor group
+        if is_user_have_another_caravar:
+            pass
+        else:
+            selected_group = Group.objects.get(name='user-Investor') 
+            selected_group.user_set.remove(assigend_caravan.owner)
+        send_mail(
+                subject='Your Caravan status now is confirmed',
+                message= f' sorry {assigend_caravan.owner.username} your caravan dose not meet our reqirments ,  for any quastion contact us on : {request.user.email}',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[assigend_caravan.owner.email]    
+         )
         messages.success(request , 'caravan status is Un-Active and rejected' )
+
         return redirect('website:home-page')
 
 
