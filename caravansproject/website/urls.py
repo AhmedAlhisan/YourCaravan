@@ -18,7 +18,9 @@ urlpatterns = [
     path("confirmCaravan/<caravan_id>" , views.confirmCaravan , name='confirmation'),
     path("rejectCaravan/<caravan_id>" , views.rejectCaravan , name='reject'),
     path('showCaravanStatusUser' , views.showCaravanStatusUser , name='showCaravanStatusUser'),
-    path('adminManagAllCravanBook/<caravan_id>',views.adminManagAllCravanBook , name='adminManageBook')
+    path('adminManagAllCravanBook/<caravan_id>',views.adminManagAllCravanBook , name='adminManageBook'),
+    path('deleteBookingByAdmin/<book_id>',views.adminDeleteBooking , name='deleteBookingAdmin'),
+    path('updateBookingByAdmin/<book_id>',views.adminUpdateingBook , name='updatingBooking')
 
      
     

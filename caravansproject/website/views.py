@@ -4,6 +4,7 @@ from . models import Caravan , Booking , ContactUs
 from django.contrib import messages
 from django.contrib.auth.models import Group , User 
 from django.conf import settings
+from django.core.mail import send_mail
 
 
 
@@ -40,6 +41,13 @@ def addCaravanuser(request :HttpRequest):
             new_caravan.save()
             investor_group = Group.objects.get(name='user-Investor')
             request.user.groups.add(investor_group)
+             ##sending confirmation to user email
+            send_mail(
+                subject='Your Caravan now is pending',
+                message= f' we recive your request and we will notifay  you soon {request.user.username} on your email : {request.user.email}',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[request.user.email]    
+         )
         return render(request , 'website/adminAddCaravan.html')
     return redirect('account:login')        
 
@@ -126,8 +134,16 @@ def confirmCaravan(request : HttpRequest , caravan_id):
         assigend_caravan = Caravan.objects.get(id=caravan_id)
         assigend_caravan.carvan_status=True
         assigend_caravan.save()
+        send_mail(
+                subject='Your Caravan status now is confirmed',
+                message= f' we approve your request and we your caravan status now is approve {assigend_caravan.owner.username} for any quastion contact us on : {request.user.email}',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[assigend_caravan.owner.email]    
+         )
         messages.success(request , 'caravan Status is now Active and accepted')
         return redirect('website:home-page')
+    
+
 def rejectCaravan(request : HttpRequest , caravan_id):
     '''reject Caravan and delete it'''
     if request.user.is_staff:
@@ -148,6 +164,27 @@ def adminManagAllCravanBook(request : HttpRequest , caravan_id):
         return render(request , 'website/showAllUsersBookInEachCaravan.html' , {'all_users_booking':all_users_booking ,'assigend_caravan':assigend_caravan })
     return redirect('website:home')
 
+def adminDeleteBooking(request : HttpRequest , book_id):
+    if request.user.is_staff:
+        assigend_book = Booking.objects.get(id = book_id)
+        assigend_book.delete()
+        messages.success(request , 'book is deleted successfuly')
+        return redirect('website:all-caravans')
+    return redirect('account : login')
+
+def adminUpdateingBook(request : HttpRequest , book_id):
+    if request.user.is_staff:
+        assigend_book = Booking.objects.get(id = book_id)
+        assigend_book.booking_date=assigend_book.booking_date.isoformat()
+        if request.method == 'POST':
+            assigend_book.note = request.POST['note']
+            if 'booking_date' in request.POST:
+                assigend_book.booking_date = request.POST['booking_date']
+            assigend_book.save()
+            messages.success(request , 'book has been updated successfuly')
+            return redirect('website:home-page')
+        return render(request , 'website/adminUpdateBook.html' , {'assigend_book':assigend_book})
+            
 
             
     

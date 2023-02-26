@@ -1,5 +1,15 @@
-{% autoescape off %}  
-Hi {{ user.username }},  
-Please click on the link to confirm your registration,  
-http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %}  
+{% extends 'website/base.html' %} 
+{% block content %}
+{% autoescape off %}
+
+      
+    <div class="alert alert-success" role="alert">
+        Hi {{ request.user.username }},
+        Please click on the link to confirm your registration,  
+        http://{{ domain }}{% url 'account:activate' uidb64=uid token=token %} 
+      </div>
+    
+  
+ 
 {% endautoescape %}  
+{% endblock %}

@@ -98,10 +98,19 @@
 
   <!--/ Property Grid Star /-->
   <section class="property-grid grid">
+  
     <div class="container">
       <div class="row">
         <div class="col-sm-12">
           <div class="grid-option">
+            {% if messages %}
+            {% for i in messages %}
+            <div class="alert alert-success" role="alert">
+                 {{ i }}
+               </div>
+                 
+            {% endfor %}
+            {% endif %}
            
           </div>
         </div>
