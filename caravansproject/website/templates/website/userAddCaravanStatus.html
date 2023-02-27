@@ -42,7 +42,7 @@ Show status <h1>this caravan for : {{request.user.username}}</h1>
         <span class="badge badge-success">Success</span>
       </td>
       {% endif %}
-      <td><a href="{% url 'website:showUserCaravanIsBookStatus' i.id %}"><button type="button" class="btn btn-dark">Dark</button></a></td>
+      <td><a href="{% url 'website:showUserCaravanIsBookStatus' i.id %}"><button type="button" class="btn btn-dark">check</button></a></td>
     </tr>
     
     {% endfor %}
