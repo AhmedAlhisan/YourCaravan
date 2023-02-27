@@ -20,7 +20,8 @@ urlpatterns = [
     path('showCaravanStatusUser' , views.showCaravanStatusUser , name='showCaravanStatusUser'),
     path('adminManagAllCravanBook/<caravan_id>',views.adminManagAllCravanBook , name='adminManageBook'),
     path('deleteBookingByAdmin/<book_id>',views.adminDeleteBooking , name='deleteBookingAdmin'),
-    path('updateBookingByAdmin/<book_id>',views.adminUpdateingBook , name='updatingBooking')
+    path('updateBookingByAdmin/<book_id>',views.adminUpdateingBook , name='updatingBooking'),
+    path('showUserCaravanStatusBooking/<carvan_id>' , views.showUserCaravanIsBookStatus , name='showUserCaravanIsBookStatus')
 
      
     

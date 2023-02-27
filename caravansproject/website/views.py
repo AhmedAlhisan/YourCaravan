@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.contrib.auth.models import Group , User 
 from django.conf import settings
 from django.core.mail import send_mail
+from datetime import date
 
 
 
@@ -205,6 +206,13 @@ def adminUpdateingBook(request : HttpRequest , book_id):
             messages.success(request , 'book has been updated successfuly')
             return redirect('website:home-page')
         return render(request , 'website/adminUpdateBook.html' , {'assigend_book':assigend_book})
+    
+def showUserCaravanIsBookStatus(request:HttpRequest , carvan_id ):
+    '''this function will help users who ivest their carvans to know the status of booking  ''' 
+    is_booked=Booking.objects.filter(caravan = carvan_id)
+    
+    
+    return render(request , 'website/showusersCaravanBookStatus.html',{'is_booked':is_booked })  
     
     
             

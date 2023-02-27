@@ -1,0 +1,49 @@
+{% extends 'website/base.html' %}
+{% load static %}
+
+{% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+Show status <h1>this caravan for : {{request.user.username}}</h1>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">bookin User</th>
+      <th scope="col">caravan Name</th>
+      <th scope="col">note</th>
+      <th scope="col">booking_date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for i in is_booked %}
+    <tr>
+      <th scope="row">#</th>
+      <td> {{ i.bookinUser.username }} </td>
+      <td>{{ i.caravan.name }}</td>
+      <td>{{ i.note }}</td>
+     
+     
+      
+      <td>
+        
+      
+        <span class="badge badge-success">{{i.booking_date}}</span>
+      </td>
+
+    </tr>
+    {% endfor %}
+   
+   
+  </tbody>
+</table>
+
+{% endblock %}
