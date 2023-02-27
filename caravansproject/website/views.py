@@ -152,7 +152,7 @@ def confirmCaravan(request : HttpRequest , caravan_id):
     
 
 def rejectCaravan(request : HttpRequest , caravan_id):
-    '''reject Caravan and delete it'''
+    '''reject Caravan and delete it , + remove user from investor group to normal user '''
     if request.user.is_staff:
         assigend_caravan  =Caravan.objects.get(id=caravan_id)
         assigend_caravan.delete()
@@ -163,7 +163,7 @@ def rejectCaravan(request : HttpRequest , caravan_id):
             selected_group = Group.objects.get(name='user-Investor') 
             selected_group.user_set.remove(assigend_caravan.owner)
         send_mail(
-                subject='Your Caravan status now is confirmed',
+                subject='Your Caravan status now is Un-Active',
                 message= f' sorry {assigend_caravan.owner.username} your caravan dose not meet our reqirments ,  for any quastion contact us on : {request.user.email}',
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[assigend_caravan.owner.email]    
@@ -174,6 +174,7 @@ def rejectCaravan(request : HttpRequest , caravan_id):
 
 
 def showCaravanStatusUser(request : HttpRequest):
+    
     inestor_user_caravan = Caravan.objects.filter(  owner = request.user.id)
     return render(request , 'website/userAddCaravanStatus.html' , {'inestor_user_caravan':inestor_user_caravan})
 
@@ -204,6 +205,8 @@ def adminUpdateingBook(request : HttpRequest , book_id):
             messages.success(request , 'book has been updated successfuly')
             return redirect('website:home-page')
         return render(request , 'website/adminUpdateBook.html' , {'assigend_book':assigend_book})
+    
+    
             
 
             
