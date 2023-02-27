@@ -5,7 +5,8 @@ from django.contrib import messages
 from django.contrib.auth.models import Group , User 
 from django.conf import settings
 from django.core.mail import send_mail
-from datetime import date
+from datetime import datetime
+import pytz
 
 
 
@@ -31,6 +32,8 @@ def addCaravanAdmin(request :HttpRequest):
         if request.method == 'POST':
             new_caravan=Caravan(name=request.POST['name'],feature_image=request.FILES['feature_image'],description=request.POST['description'],price=request.POST['price'],capacity=request.POST['capacity'],owner=request.user, carvan_status=True)
             new_caravan.save()
+            messages.success(request , 'Caravan has been added successfuly')
+            return redirect('website:all-caravans')
         return render(request , 'website/adminAddCaravan.html') 
     return redirect('account:login')
 
@@ -50,6 +53,8 @@ def addCaravanuser(request :HttpRequest):
                 from_email=settings.EMAIL_HOST_USER,
                 recipient_list=[request.user.email]    
          )
+            messages.success(request , 'Your Caravan status now is pending , we will email you when action is send')
+            return redirect('website:all-caravans')
         return render(request , 'website/adminAddCaravan.html')
     return redirect('account:login')        
 
@@ -69,11 +74,13 @@ def bookCaravan(request :HttpRequest , caravan_id):
             
             if check_dateTime :
                 messages.success(request , 'soory chose another date and time')
+                return render(request,'website/book-caravan.html')
 
-            else:      
+            else:    
                 new_book.save()
                 messages.success(request, 'Your booking is succesfuly Done , Thank you ')
-                return redirect('website:home-page')
+                return redirect('website:showBook')
+            
             
             
     return render(request,'website/book-caravan.html')
@@ -89,7 +96,10 @@ def showUserbook(request : HttpRequest ):
     if request.user.is_authenticated:
         bookinUser = request.user.get_username    
         show_booked = Booking.objects.filter(bookinUser = request.user.id)
-        return render(request , 'website/show-user-book.html', {'show_booked':show_booked , 'bookinUser':bookinUser})
+        d = datetime.today()
+        timezone = pytz.timezone("UTC")
+        now = timezone.localize(d)
+        return render(request , 'website/show-user-book.html', {'show_booked':show_booked , 'bookinUser':bookinUser , 'now':now})
     return redirect('account:login')
 
 
@@ -111,6 +121,7 @@ def updateCaravan(request : HttpRequest , caravan_id):
                 selected_caravan.feature_image=request.POST['feature_image']
             selected_caravan.save()
             messages.success(request , 'selected Caravan updated succesfuly')
+            return redirect('website:all-caravans')
         return render(request , 'website/adminEditCaravan.html' , {'selected_caravan':selected_caravan}) 
     return redirect('website:home-page')
 
@@ -149,7 +160,7 @@ def confirmCaravan(request : HttpRequest , caravan_id):
                 recipient_list=[assigend_caravan.owner.email]    
          )
         messages.success(request , 'caravan Status is now Active and accepted')
-        return redirect('website:home-page')
+        return redirect('website:all-caravans')
     
 
 def rejectCaravan(request : HttpRequest , caravan_id):
@@ -197,25 +208,33 @@ def adminDeleteBooking(request : HttpRequest , book_id):
 def adminUpdateingBook(request : HttpRequest , book_id):
     if request.user.is_staff:
         assigend_book = Booking.objects.get(id = book_id)
-        assigend_book.booking_date=assigend_book.booking_date.isoformat()
+        assigend_book.booking_date=assigend_book.booking_date.strftime("%Y-%m-%d")
         if request.method == 'POST':
             assigend_book.note = request.POST['note']
             if 'booking_date' in request.POST:
                 assigend_book.booking_date = request.POST['booking_date']
             assigend_book.save()
             messages.success(request , 'book has been updated successfuly')
-            return redirect('website:home-page')
+            return redirect('website:all-caravans')
         return render(request , 'website/adminUpdateBook.html' , {'assigend_book':assigend_book})
     
 def showUserCaravanIsBookStatus(request:HttpRequest , carvan_id ):
     '''this function will help users who ivest their carvans to know the status of booking  ''' 
     is_booked=Booking.objects.filter(caravan = carvan_id)
     
+    d = datetime.today()
+    timezone = pytz.timezone("UTC")
+    now = timezone.localize(d)
+
+   
     
-    return render(request , 'website/showusersCaravanBookStatus.html',{'is_booked':is_booked })  
     
+    return render(request , 'website/showusersCaravanBookStatus.html',{'is_booked':is_booked , 'now':now  })  
     
-            
+
+    
+def Contactus(request :HttpRequest):
+    return render(request , 'website/contact.html')            
 
             
     

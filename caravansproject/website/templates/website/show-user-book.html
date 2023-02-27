@@ -10,6 +10,14 @@
 <br>
 <br>
 <br>
+{% if messages %}
+{% for i in messages %}
+<div class="alert alert-success" role="alert">
+     {{ i }}
+   </div>
+     
+{% endfor %}
+{% endif %}
 Show Book <h1>this Book for : {{bookinUser}}</h1>
 
 
@@ -28,7 +36,13 @@ Show Book <h1>this Book for : {{bookinUser}}</h1>
       <th scope="row">Booked</th>
       <td> {{ i.caravan.name }} </td>
       <td>{{ i.note }}</td>
-      <td>{{ i.booking_date }}</td>
+      {% if i.booking_date < now %}
+      <td><span class="badge badge-danger">{{i.booking_date}}</span></td>
+      {% else %}
+      <td><span class="badge badge-success">{{i.booking_date}}</span></td>
+      {% endif %}
+      
+
     </tr>
     {% endfor %}
    

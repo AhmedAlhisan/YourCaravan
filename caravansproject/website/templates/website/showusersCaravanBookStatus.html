@@ -34,11 +34,14 @@ Show status <h1>this caravan for : {{request.user.username}}</h1>
      
       
       <td>
+        {{i.booking_date}}
         
-      
-        <span class="badge badge-success">{{i.booking_date}}</span>
+        {% if i.booking_date < now %}
+        <span class="badge badge-danger">Booked|End</span>
+        {% else %}
+        <span class="badge badge-success">in progress</span>
       </td>
-
+      {% endif %}
     </tr>
     {% endfor %}
    

@@ -21,7 +21,8 @@ urlpatterns = [
     path('adminManagAllCravanBook/<caravan_id>',views.adminManagAllCravanBook , name='adminManageBook'),
     path('deleteBookingByAdmin/<book_id>',views.adminDeleteBooking , name='deleteBookingAdmin'),
     path('updateBookingByAdmin/<book_id>',views.adminUpdateingBook , name='updatingBooking'),
-    path('showUserCaravanStatusBooking/<carvan_id>' , views.showUserCaravanIsBookStatus , name='showUserCaravanIsBookStatus')
+    path('showUserCaravanStatusBooking/<carvan_id>' , views.showUserCaravanIsBookStatus , name='showUserCaravanIsBookStatus'),
+    path('contactus/' , views.Contactus, name='contactus'),
 
      
     

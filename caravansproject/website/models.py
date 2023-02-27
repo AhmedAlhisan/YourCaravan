@@ -1,6 +1,10 @@
 from django.db import models
 from django.contrib.auth.models import User
-from datetime import date
+from django.core.validators import MinValueValidator
+from datetime import datetime
+
+from django.core.exceptions import ValidationError
+
 
 
 
@@ -26,13 +30,9 @@ class Booking(models.Model):
     bookinUser = models.ForeignKey(User,on_delete=models.CASCADE)
     caravan = models.ForeignKey(Caravan, on_delete=models.CASCADE)
     note=models.TextField()
-    booking_date = models.DateTimeField()
+    booking_date = models.DateTimeField(validators=[MinValueValidator(datetime.today())])
+    
 
-
-
-    @property
-    def is_past_due(self):
-        return date.today() > self.booking_date.date
     
 
 class ContactUs(models.Model):
