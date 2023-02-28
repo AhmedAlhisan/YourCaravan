@@ -30,7 +30,7 @@ class Booking(models.Model):
     bookinUser = models.ForeignKey(User,on_delete=models.CASCADE)
     caravan = models.ForeignKey(Caravan, on_delete=models.CASCADE)
     note=models.TextField()
-    booking_date = models.DateTimeField(validators=[MinValueValidator(datetime.today())])
+    booking_date = models.DateTimeField()
     
 
     

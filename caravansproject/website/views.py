@@ -13,8 +13,20 @@ import pytz
 # Create your views here.
 
 def homePage(request :HttpRequest):
+    if request.user.is_authenticated:
+        if request.user.groups.filter(name = 'user-Investor').exists():
+            check_user_is_investor_or_not = Caravan.objects.filter(owner = request.user)
+            if check_user_is_investor_or_not:
+                pass
+            else:
+                 selected_group = Group.objects.get(name='user-Investor') 
+                 selected_group.user_set.remove(request.user)
+
+            
+
+
     
-    return render(request , 'website/home.html')
+        return render(request , 'website/home.html')
 
 def caravanList(request :HttpRequest):
     
@@ -70,20 +82,28 @@ def bookCaravan(request :HttpRequest , caravan_id):
              
             assigend_caravan = Caravan.objects.get(id=caravan_id)
             new_book = Booking(bookinUser = request.user , caravan = assigend_caravan ,note=request.POST['Note'],booking_date = request.POST['booking_date'] )
-            check_dateTime = Booking.objects.filter(booking_date = request.POST['booking_date'])
+            convert_date_from_string_to_date=datetime.strptime(new_book.booking_date , '%Y-%m-%d')
+            print(convert_date_from_string_to_date)
+            print(datetime.today())
             
-            if check_dateTime :
+            if convert_date_from_string_to_date < datetime.today():
+                messages.success(request , 'soory chosee valid date')
+                return render(request,'website/book-caravan.html')
+            
+            if Booking.objects.filter(booking_date = request.POST['booking_date']) :
                 messages.success(request , 'soory chose another date and time')
                 return render(request,'website/book-caravan.html')
+
 
             else:    
                 new_book.save()
                 messages.success(request, 'Your booking is succesfuly Done , Thank you ')
                 return redirect('website:showBook')
+   
             
+               
             
-            
-    return render(request,'website/book-caravan.html')
+        return render(request,'website/book-caravan.html')
 
 
 
@@ -182,7 +202,7 @@ def rejectCaravan(request : HttpRequest , caravan_id):
          )
         messages.success(request , 'caravan status is Un-Active and rejected' )
 
-        return redirect('website:home-page')
+        return redirect('website:all-caravans')
 
 
 def showCaravanStatusUser(request : HttpRequest):
