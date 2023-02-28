@@ -10,6 +10,7 @@
 <br>
 <br>
 <br>
+<div class="container">
 {% if messages %}
 {% for i in messages %}
 <div class="alert alert-success" role="alert">
@@ -18,23 +19,27 @@
      
 {% endfor %}
 {% endif %}
-Show Book <h1>this Book for : {{bookinUser}}</h1>
+ <h3>All Books Detailes For : <strong>{{bookinUser}}</strong></h3>
 
 
-<table class="table">
+<table  class="table">
   <thead>
     <tr>
-      <th scope="col">#</th>
+      <th scope="col">Caravan owner</th>
       <th scope="col">Caravan Name</th>
+      <th scope="col">Caravan Price</th>
+      <th scope="col">Caravan capacity</th>
       <th scope="col">Note</th>
-      <th scope="col">StartDate</th>
+      <th scope="col">Book Date</th>
     </tr>
   </thead>
   <tbody>
     {% for i in show_booked %}
     <tr>
-      <th scope="row">Booked</th>
+      <th scope="row">{{i.caravan.owner.username}}</th>
       <td> {{ i.caravan.name }} </td>
+      <td> {{ i.caravan.price }} SAR </td>
+      <td> {{ i.caravan.capacity }} persons </td>
       <td>{{ i.note }}</td>
       {% if i.booking_date < now %}
       <td><span class="badge badge-danger">{{i.booking_date}}</span></td>
@@ -49,5 +54,6 @@ Show Book <h1>this Book for : {{bookinUser}}</h1>
    
   </tbody>
 </table>
+</div>
 
 {% endblock %}

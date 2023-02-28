@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-md-12 col-lg-8">
           <div class="title-single-box">
-            <h1 class="title-single">Booking Servece</h1>
+            <h1 class="title-single">Caravan Information </h1>
             <span class="color-text-a"></span>
           </div>
         </div>
@@ -33,21 +33,34 @@
 
  <!--/ Contact Star /-->
  <section class="contact">
+
+ <div class="container">
+  <div class="card mb-3" style="max-width: 540px;">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <img src="{{assigend_caravan.feature_image.url}}" class="img-fluid rounded-start" alt="...">
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title">Caravan owner :{{assigend_caravan.owner.username}}</h5>
+          <p class="card-text">Caravan Description : {{assigend_caravan.description}} </p>
+          <p class="card-text">Caravan Description : {{assigend_caravan.price}} SAR </p>
+          <p class="card-text"><small class="text-muted">caravan Capacity {{assigend_caravan.capacity}} <i class="bi bi-people-fill"></i></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
     <div class="container">
       <div class="row">
-        <div class="col-sm-12">
-          <div class="contact-map box">
-            <div id="map" class="contact-map">
-              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d464016.37739120214!2d47.058768930043726!3d24.688128018016663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e2f03890d489399%3A0xba974d1c98e79fd5!2z2KfZhNix2YrYp9i2!5e0!3m2!1sar!2ssa!4v1677178697358!5m2!1sar!2ssa" 
-                width="100%" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
-            </div>
-          </div>
-        </div>
+       
         {% if messages %}
 {% for i in messages %}
-<div class="alert alert-success" role="alert">
-     {{ i }}
-   </div>
+<div class="alert alert-danger" role="alert">
+  {{i}}
+</div>
      
 {% endfor %}
 {% endif %}
@@ -96,14 +109,14 @@
                 </div>
                 <div class="icon-box-content table-cell">
                   <div class="icon-box-title">
-                    <h4 class="icon-title">Say Hello</h4>
+                    <h4 class="icon-title">Contact Owner</h4>
                   </div>
                   <div class="icon-box-content">
                     <p class="mb-1">Email.
-                      <span class="color-a">contact@example.com</span>
+                      <span class="color-a">{{assigend_caravan.owner.email}}</span>
                     </p>
-                    <p class="mb-1">Phone.
-                      <span class="color-a">+54 356 945234</span>
+                    <p class="mb-1">Name Of Owner
+                      <span class="color-a">{{assigend_caravan.owner.username}}</span>
                     </p>
                   </div>
                 </div>

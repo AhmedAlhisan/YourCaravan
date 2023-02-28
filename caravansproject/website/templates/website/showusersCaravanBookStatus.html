@@ -2,15 +2,15 @@
 {% load static %}
 
 {% block content %}
+<div  class="container">
+  <br>
 <br>
 <br>
 <br>
 <br>
-<br>
-<br>
-<br>
-<br>
-Show status <h1>this caravan for : {{request.user.username}}</h1>
+
+
+Show booking in your caravan <h1>this caravan owned  : {{request.user.username}}</h1>
 
 
 <table class="table">
@@ -18,9 +18,12 @@ Show status <h1>this caravan for : {{request.user.username}}</h1>
     <tr>
       <th scope="col">#</th>
       <th scope="col">bookin User</th>
+      <th scope="col">bookin User email</th>
       <th scope="col">caravan Name</th>
       <th scope="col">note</th>
+      <th scope="col">booking_status</th>
       <th scope="col">booking_date</th>
+      
     </tr>
   </thead>
   <tbody>
@@ -28,13 +31,15 @@ Show status <h1>this caravan for : {{request.user.username}}</h1>
     <tr>
       <th scope="row">#</th>
       <td> {{ i.bookinUser.username }} </td>
+      <td> {{ i.bookinUser.email }} </td>
       <td>{{ i.caravan.name }}</td>
       <td>{{ i.note }}</td>
      
      
+     
       
       <td>
-        {{i.booking_date}}
+        
         
         {% if i.booking_date < now %}
         <span class="badge badge-danger">Booked|End</span>
@@ -42,11 +47,16 @@ Show status <h1>this caravan for : {{request.user.username}}</h1>
         <span class="badge badge-success">in progress</span>
       </td>
       {% endif %}
+      <td>{{ i.booking_date }}</td>
     </tr>
-    {% endfor %}
    
+    {% endfor %}
+  
    
   </tbody>
 </table>
+</div>
+
+
 
 {% endblock %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render , redirect
 from django.http import HttpRequest, HttpResponse
-from . models import Caravan , Booking , ContactUs
+from . models import Caravan , Booking , ContactOwner
 from django.contrib import messages
 from django.contrib.auth.models import Group , User 
 from django.conf import settings
@@ -26,7 +26,7 @@ def homePage(request :HttpRequest):
 
 
     
-        return render(request , 'website/home.html')
+    return render(request , 'website/home.html')
 
 def caravanList(request :HttpRequest):
     
@@ -73,11 +73,25 @@ def addCaravanuser(request :HttpRequest):
 def show_details_of_caravans(request :HttpRequest , caravan_id):
     if request.user.is_authenticated:
         assigend_caravan = Caravan.objects.get(id = caravan_id)
-        return render(request , 'website/caravan-single.html' , {'assigend_caravan':assigend_caravan})
+
+        if request.method == 'POST':
+            new_message = ContactOwner(sender = request.user , to = assigend_caravan.owner.email , content = request.POST['content'])
+            new_message.save()
+            send_mail(
+                subject='messege from customer',
+                message= f' hi {assigend_caravan.owner.username} , {new_message.sender.username} messege you about your caravn {assigend_caravan.name} , {new_message.content}  you can contact the customer on : {new_message.sender.email}',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=[assigend_caravan.owner.email]    
+         )
+            messages.success(request , ' thank you , your Message has been sent')
+
+        return render(request , 'website/caravan-single.html' , {'assigend_caravan':assigend_caravan })
+    
     return redirect('account:login')
 
 def bookCaravan(request :HttpRequest , caravan_id):
     if request.user.is_authenticated:
+        assigend_caravan = Caravan.objects.get(id=caravan_id)
         if request.method == 'POST':
              
             assigend_caravan = Caravan.objects.get(id=caravan_id)
@@ -88,22 +102,27 @@ def bookCaravan(request :HttpRequest , caravan_id):
             
             if convert_date_from_string_to_date < datetime.today():
                 messages.success(request , 'soory chosee valid date')
-                return render(request,'website/book-caravan.html')
+                return render(request,'website/book-caravan.html' , {'assigend_caravan':assigend_caravan})
             
             if Booking.objects.filter(booking_date = request.POST['booking_date']) :
                 messages.success(request , 'soory chose another date and time')
-                return render(request,'website/book-caravan.html')
+                return render(request,'website/book-caravan.html',{'assigend_caravan':assigend_caravan})
 
 
             else:    
                 new_book.save()
                 messages.success(request, 'Your booking is succesfuly Done , Thank you ')
                 return redirect('website:showBook')
+            
+            
    
             
                
             
-        return render(request,'website/book-caravan.html')
+        return render(request,'website/book-caravan.html' , {'assigend_caravan':assigend_caravan} )
+    return redirect('account :login')
+    
+   
 
 
 
@@ -151,7 +170,7 @@ def deleteCaravan(request: HttpRequest , caravan_id):
             selected_caraven = Caravan.objects.get(id=caravan_id)
             selected_caraven.delete()   
             messages.success(request , 'selected Caravan , deleted succesfuly')
-            return redirect('website:home-page')   
+            return redirect('website:all-caravans')   
 
 def showNeedConfirmationCaravans(request : HttpRequest):
     '''this function will show all caravans poted by users , and admin need to confirm this caravans to show four public'''
@@ -245,16 +264,10 @@ def showUserCaravanIsBookStatus(request:HttpRequest , carvan_id ):
     d = datetime.today()
     timezone = pytz.timezone("UTC")
     now = timezone.localize(d)
-
-   
-    
-    
     return render(request , 'website/showusersCaravanBookStatus.html',{'is_booked':is_booked , 'now':now  })  
     
 
     
-def Contactus(request :HttpRequest):
-    return render(request , 'website/contact.html')            
 
             
     

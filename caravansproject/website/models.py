@@ -35,8 +35,9 @@ class Booking(models.Model):
 
     
 
-class ContactUs(models.Model):
+class ContactOwner(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
-    email = models.EmailField(max_length=512)
+    to = models.CharField(max_length=512)
+    
     content = models.TextField()
     date = models.DateField(auto_now_add=True)    
