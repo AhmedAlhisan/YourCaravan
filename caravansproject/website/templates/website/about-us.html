@@ -1,0 +1,139 @@
+{% extends 'website/base.html' %}
+{% load static %}
+{% block content %}
+<br>
+<br>  
+<br>
+<br>
+<br>  
+<br>
+
+
+<div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+  <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+    <h1 class="display-4 fw-bold lh-1">Your Caravan</h1>
+    <p class="lead">A platform helping users to find caravans for rent , by showing th newst Caravans with fair price , however we , also support who want to invest by his caravanS , For individuals and groups . </p>
+    <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+      <a href="{% url 'account:register' %}"><button type="button" class="btn btn-success btn-lg px-4 me-md-2 fw-bold">Sign Up</button></a>
+      <a href="{% url 'account:login' %}"><button type="button" class="btn btn-outline-secondary btn-lg px-4">Sign In</button></a>
+    </div>
+  </div>
+  <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
+      
+  </div>
+</div>
+</dev>
+
+
+<br>
+<br>
+{% if messages %}
+{% for i in messages %}
+<div class="alert alert-success" role="alert">
+     {{ i }}
+   </div>
+     
+{% endfor %}
+{% endif %}
+
+<div class="container">
+  <div class="row justify-content-center">
+  <div class="col-md-6 text-center mb-5">
+  <h2 class="heading-section">Contact Us</h2>
+  </div>
+  </div>
+  <div class="row justify-content-center">
+  <div class="col-lg-10 col-md-12">
+  <div class="wrapper">
+  <div class="row no-gutters">
+  <div class="col-md-7 d-flex align-items-stretch">
+  <div class="contact-wrap w-100 p-md-5 p-4">
+  <h3 class="mb-4">Get in touch</h3>
+  <div id="form-message-warning" class="mb-4"></div>
+  <div id="form-message-success" class="mb-4">
+ 
+  </div>
+  <form method="POST" id="contactForm" name="contactForm" novalidate="novalidate">
+    {% csrf_token %}
+  <div class="row">
+  <div class="col-md-6">
+  <div class="form-group">
+  
+  </div>
+  </div>
+  <div class="col-md-6">
+  <div class="form-group">
+ 
+  </div>
+  </div>
+  <div class="col-md-12">
+  <div class="form-group">
+ 
+  </div>
+  </div>
+  <div class="col-md-12">
+  <div class="form-group">
+  <textarea name="content" class="form-control" id="message" cols="30" rows="7" placeholder="Message"></textarea>
+  </div>
+  </div>
+  <div class="col-md-12">
+  <div class="form-group">
+  <input type="submit" value="Send Message" class="btn btn-success">
+  <div class="submitting"></div>
+  </div>
+  </div>
+  </div>
+  </form>
+  </div>
+  </div>
+  <div class="col-md-5 d-flex align-items-stretch">
+  <div class="info-wrap  w-100 p-lg-5 p-4">
+  
+  <div class="dbox w-100 d-flex align-items-start">
+  <div class="icon d-flex align-items-center justify-content-center">
+  
+  </div>
+  <div class="text pl-3">
+  
+  </div>
+  </div>
+  <div class="dbox w-100 d-flex align-items-center">
+  <div class="icon d-flex align-items-center justify-content-center">
+   
+  </div>
+  <div class="text pl-3">
+  
+  </div>
+  </div>
+  <div class="dbox w-100 d-flex align-items-center">
+  <div class="icon d-flex align-items-center justify-content-center">
+  
+  </div>
+  <div class="text pl-3">
+    
+  </div>
+  </div>
+  <div class="dbox w-100 d-flex align-items-center">
+  <div class="icon d-flex align-items-center justify-content-center">
+    <img style="width: 50px;" src="{% static 'website/img/cform.png' %}" alt="">
+  </div>
+  <div class="text pl-3">
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+
+    
+
+    
+
+             
+
+ 
+  {% endblock %}

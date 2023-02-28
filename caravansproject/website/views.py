@@ -265,6 +265,25 @@ def showUserCaravanIsBookStatus(request:HttpRequest , carvan_id ):
     timezone = pytz.timezone("UTC")
     now = timezone.localize(d)
     return render(request , 'website/showusersCaravanBookStatus.html',{'is_booked':is_booked , 'now':now  })  
+
+def aboutUs (request : HttpRequest):
+    if request.method=='POST':
+        if request.user.is_authenticated:
+            new_message = ContactOwner(sender = request.user , to = 'Adminstration' , content = request.POST['content'])
+            new_message.save()
+            messages.success(request , "thank you , message has been sent")
+            send_mail(
+                subject='thank you for contact us',
+                message= f'{new_message.sender.username} we receve your message , and we will contact you on{new_message.sender.email} ',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=['alhisan.swe@gmail.com']    
+         )
+
+
+        else:
+            return redirect('account:login')    
+
+    return render(request , 'website/about-us.html')
     
 
     
