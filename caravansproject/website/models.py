@@ -31,6 +31,8 @@ class Booking(models.Model):
     caravan = models.ForeignKey(Caravan, on_delete=models.CASCADE)
     note=models.TextField()
     booking_date = models.DateTimeField()
+    def __str__(self) :
+        return self.bookinUser.username
     
 
     
@@ -39,4 +41,6 @@ class ContactOwner(models.Model):
     sender = models.ForeignKey(User, on_delete=models.CASCADE)
     to = models.CharField(max_length=512)
     content = models.TextField()
-    date = models.DateField(auto_now_add=True)    
+    date = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return self.sender.email    

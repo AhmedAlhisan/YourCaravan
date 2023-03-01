@@ -13,7 +13,7 @@ import pytz
 # Create your views here.
 
 def homePage(request :HttpRequest):
-    '''each time user sing in system will check if the user investor or not'''
+    '''each time user sing in system will check if the user investor or normal user'''
     if request.user.is_authenticated:
         if request.user.groups.filter(name = 'user-Investor').exists():
             check_user_is_investor_or_not = Caravan.objects.filter(owner = request.user)
@@ -30,8 +30,9 @@ def homePage(request :HttpRequest):
     return render(request , 'website/home.html')
 
 def caravanNotReadyAdmin(request : HttpRequest):
+    '''all caravan with status 0 (no) will not show in market and showing only to admin'''
     if request.user.is_staff:
-        all_carvans = Caravan.objects.filter(carvan_status = False , owner = request.user)
+        all_carvans = Caravan.objects.filter(carvan_status = False )
         return render(request , 'website/notReadyCaravanListForAdmin.html', {'all_carvans':all_carvans})
     return redirect('account:login') 
 
