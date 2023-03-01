@@ -39,30 +39,39 @@
     </div>
   </section>
   <!--/ Intro Single End /-->
-
-  <!--/ Property Single Star /-->
   <section class="property-single nav-arrow-b">
     <div class="container">
       <div class="row">
+
+    <div class="col-md-6">
+      <div class="property-price d-flex justify-content-center foo">
+        <div class="card-header-c d-flex">
+         
+          
+        </div>
+      </div>
+      
+    </div>
+    <div class="col-md-6">
+      <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+        <div class="col p-4 d-flex flex-column position-static">
+          <strong class="d-inline-block mb-2 text-success">caravan owner : {{assigend_caravan.owner.username}}</strong>
+          <h3 class="mb-0">carvan name : {{assigend_caravan.name}}</h3>
+          <div class="mb-1 text-muted">capacity : {{assigend_caravan.capacity}}  <i class="bi bi-people-fill"></i></div>
+          <p class="mb-auto">detailes : {{assigend_caravan.description}}</p>
+    
+        </div>
+        <div class="col-auto d-none d-lg-block">
+          <img src="{{assigend_caravan.feature_image.url}}" class="bd-placeholder-img" width="200" height="250" xmlns="" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false"><title></title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em"></text></img>
+        </div>
+      </div>
+    </div>
+  
         <div class="col-sm-12">
-          <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
-            <div class="carousel-item-b">
-              <img width="500px" height="1100px" src="{{assigend_caravan.feature_image.url}}" alt="">
-            </div>
-           
-          </div>
+         
           <div class="row justify-content-between">
             <div class="col-md-5 col-lg-4">
-              <div class="property-price d-flex justify-content-center foo">
-                <div class="card-header-c d-flex">
-                  <div class="card-box-ico">
-                    <span class="ion-money"></span>
-                  </div>
-                  <div class="card-title-c align-self-center">
-                    <h5 class="title-c">{{assigend_caravan.price}}</h5>
-                  </div>
-                </div>
-              </div>
+             
               <div class="property-summary">
                 <div class="row">
                   <div class="col-sm-12">
@@ -102,29 +111,16 @@
                 </div>
               </div>
             </div>
-            <div class="col-md-7 col-lg-7 section-md-t3">
-              <div class="row">
-                <div class="col-sm-12">
-                  <div class="title-box-d">
-                    <h3 class="title-d">name : {{assigend_caravan.name}}</h3>
-                  </div>
-                </div>
-              </div>
-              <div class="property-description">
-                <p class="description color-text-a">
-                  Description : {{assigend_caravan.description}}
-                </p>
-                <p class="description color-text-a no-margin">
-                capacit <i class="bi bi-people-fill"></i>: {{assigend_caravan.capacity}}
-                </p>
-                
-              </div>
-              
-             
-              </div>
+           
               <div class="col-md-12">
-                <a href="{% url 'website:confirmation' assigend_caravan.id %}"><button type="submit" class="btn btn-a">Confirm</button></a>
-                <a href="{% url 'website:reject' assigend_caravan.id %}"><button type="submit" class="btn btn-a">Reject</button></a>
+               
+                {% if request.user.is_staff %}
+                <div class="col-md-12">
+                  <a href="{% url 'website:confirmation' assigend_caravan.id %}"><button type="submit" class="btn btn-a">Confirm</button></a>
+                  <a href="{% url 'website:reject' assigend_caravan.id %}"><button type="submit" class="btn btn-a">Reject</button></a>
+                </div>
+                
+                {% endif %}
               </div>
               
             </div>
@@ -136,102 +132,79 @@
           <div class="row section-t3">
             <div class="col-sm-12">
               <div class="title-box-d">
-                <h3 class="title-d">OR Contact us for more information ..</h3>
+                <h3 class="title-d">OR Contact With owner  ..</h3>
+                {% if messages %}
+                {% for i in messages %}
+                   <div class="alert alert-success" role="alert">
+                        {{i}}
+                         </div>
+     
+                      {% endfor %}
+                      {% endif %}
+
               </div>
             </div>
           </div>
           <div class="row">
             <div class="col-md-6 col-lg-4">
-              <img src="img/agent-4.jpg" alt="" class="img-fluid">
+              
             </div>
             <div class="col-md-6 col-lg-4">
               <div class="property-agent">
-                <h4 class="title-agent">Anabella Geller</h4>
+                
                 <p class="color-text-a">
                  
                 </p>
                 <ul class="list-unstyled">
                   <li class="d-flex justify-content-between">
-                    <strong>Phone:</strong>
-                    <span class="color-text-a">(222) 4568932</span>
+                    
                   </li>
                   <li class="d-flex justify-content-between">
-                    <strong>Mobile:</strong>
-                    <span class="color-text-a">777 287 378 737</span>
+                    
                   </li>
                   <li class="d-flex justify-content-between">
-                    <strong>Email:</strong>
-                    <span class="color-text-a">annabella@example.com</span>
+                  
                   </li>
                   <li class="d-flex justify-content-between">
-                    <strong>Skype:</strong>
-                    <span class="color-text-a">Annabela.ge</span>
+                    
                   </li>
                 </ul>
+             
                 <div class="socials-a">
                   <ul class="list-inline">
                     <li class="list-inline-item">
-                      <a href="#">
-                        <i class="fa fa-facebook" aria-hidden="true"></i>
-                      </a>
+                     
                     </li>
                     <li class="list-inline-item">
-                      <a href="#">
-                        <i class="fa fa-twitter" aria-hidden="true"></i>
-                      </a>
+                    
                     </li>
                     <li class="list-inline-item">
-                      <a href="#">
-                        <i class="fa fa-instagram" aria-hidden="true"></i>
-                      </a>
+                     
                     </li>
                     <li class="list-inline-item">
-                      <a href="#">
-                        <i class="fa fa-pinterest-p" aria-hidden="true"></i>
-                      </a>
+                     
                     </li>
                     <li class="list-inline-item">
-                      <a href="#">
-                        <i class="fa fa-dribbble" aria-hidden="true"></i>
-                      </a>
+                     
                     </li>
                   </ul>
                 </div>
               </div>
             </div>
-            <div class="col-md-12 col-lg-4">
-              <div class="property-contact">
-                <form class="form-a">
-                  <div class="row">
-                    <div class="col-md-12 mb-1">
-                      <div class="form-group">
-                        <input type="text" class="form-control form-control-lg form-control-a" id="inputName"
-                          placeholder="Name *" required>
-                      </div>
-                    </div>
-                    <div class="col-md-12 mb-1">
-                      <div class="form-group">
-                        <input type="email" class="form-control form-control-lg form-control-a" id="inputEmail1"
-                          placeholder="Email *" required>
-                      </div>
-                    </div>
-                    <div class="col-md-12 mb-1">
-                      <div class="form-group">
-                        <textarea id="textMessage" class="form-control" placeholder="Comment *" name="message" cols="45"
-                          rows="8" required></textarea>
-                      </div>
-                    </div>
-                    <div class="col-md-12">
-                      <button type="submit" class="btn btn-a">Send Message</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
+           
+        
+            
           </div>
         </div>
       </div>
     </div>
   </section>
+
+  <!--/ Property Single Star /-->
+  
+             
+     
+       
+
   <!--/ Property Single End /-->
   {% endblock %}

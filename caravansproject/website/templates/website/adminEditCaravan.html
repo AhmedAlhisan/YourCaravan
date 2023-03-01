@@ -16,7 +16,7 @@
         <div class="row gx-lg-5 align-items-center">
           <div class="col-lg-6 mb-5 mb-lg-0">
             <h1 class="my-5 display-3 fw-bold ls-tight">
-              add  <br />
+              Edit  <br />
               <span class="text-success">caravan</span>
             </h1>
             <p style="color: hsl(217, 10%, 50.8%)">
@@ -58,7 +58,7 @@
 
         <div class="mt-3">
             <label class="form-label">Caravan Status :</label>
-            <select name="is_attended" value="{{updated_appointment.is_attended}}" class="form-select" aria-label="Default select example">
+            <select name="carvan_status" value="{{updated_appointment.carvan_status}}" class="form-select" aria-label="Default select example">
                 <option>Open this select menu</option>
                 <option value="1" {% if selected_caravan.carvan_status == yes %} selected {% endif %}>yes</option>
                 <option value="0" {% if selected_caravan.carvan_status == no %} selected {% endif %}>no</option>
@@ -70,7 +70,7 @@
   
         <br>
         <br>
-        <input type="submit" class="btn btn-success" value="new Caravan" />
+        <input type="submit" class="btn btn-success" value="Update Caravan" />
   
       
   

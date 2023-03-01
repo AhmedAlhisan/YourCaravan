@@ -20,6 +20,7 @@ Caravans Need confirmation <h1></h1>
       <th scope="col">pricee</th>
       <th scope="col">capacity</th>
       <th scope="col">owner</th>
+      <th scope="col">owner email</th>
       <th scope="col">carvan status</th>
       <th scope="col">Destails</th>
     </tr>
@@ -31,6 +32,8 @@ Caravans Need confirmation <h1></h1>
       <td> {{ i.price }} </td>
       <td>{{ i.capacity }}</td>
       <td>{{ i.owner }}</td>
+      <td>{{ i.owner.email }}</td>
+      
       <td>{{ i.carvan_status }}</td>
       <td><a href="{% url 'website:pendingCaravan' i.id %}"><button type="button" class="btn btn-info">Info</button></a></td>
         

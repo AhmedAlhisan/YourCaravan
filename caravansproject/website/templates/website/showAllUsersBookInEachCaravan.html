@@ -18,6 +18,7 @@ all book for Caravan: {{assigend_caravan.name}} <h1></h1>
   <thead>
     <tr>
       <th scope="col">User</th>
+      <th scope="col">Caravan name</th>
       <th scope="col">note</th>
       <th scope="col">booking_date</th>
       <th scope="col">Action</th>
@@ -28,6 +29,7 @@ all book for Caravan: {{assigend_caravan.name}} <h1></h1>
     {% for i in all_users_booking %}
     <tr>
       <th scope="row">{{ i.bookinUser.username }}</th>
+      <th scope="row">{{ i.caravan.name }}</th>
       <td>{{ i.note }}</td>
       <td>{{ i.booking_date }}</td>
       

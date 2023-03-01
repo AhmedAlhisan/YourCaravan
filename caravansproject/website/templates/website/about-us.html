@@ -14,8 +14,12 @@
     <h1 class="display-4 fw-bold lh-1">Your Caravan</h1>
     <p class="lead">A platform helping users to find caravans for rent , by showing th newst Caravans with fair price , however we , also support who want to invest by his caravanS , For individuals and groups . </p>
     <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+      {% if request.user.is_authenticated %}
+      <h3>Welcome <strong style="color: rgb(28, 164, 28);">{{request.user.username}}</strong></h3>
+      {% else %}
       <a href="{% url 'account:register' %}"><button type="button" class="btn btn-success btn-lg px-4 me-md-2 fw-bold">Sign Up</button></a>
       <a href="{% url 'account:login' %}"><button type="button" class="btn btn-outline-secondary btn-lg px-4">Sign In</button></a>
+      {% endif %}
     </div>
   </div>
   <div class="col-lg-4 offset-lg-1 p-0 overflow-hidden shadow-lg">
@@ -53,7 +57,7 @@
   <div id="form-message-success" class="mb-4">
  
   </div>
-  <form method="POST" id="contactForm" name="contactForm" novalidate="novalidate">
+  <form method="POST" id="contactForm" name="contactForm" class="row g-3 needs-validation">
     {% csrf_token %}
   <div class="row">
   <div class="col-md-6">
@@ -73,7 +77,7 @@
   </div>
   <div class="col-md-12">
   <div class="form-group">
-  <textarea name="content" class="form-control" id="message" cols="30" rows="7" placeholder="Message"></textarea>
+  <textarea name="content" class="form-control" id="message" id="validationCustom01" cols="30" rows="7" placeholder="Message" required></textarea>
   </div>
   </div>
   <div class="col-md-12">

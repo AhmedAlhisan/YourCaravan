@@ -10,7 +10,7 @@
   <meta content="" name="description">
 
   <!-- Favicons -->
-  <link href="{% static 'website/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'website/img/webicon2.png' %}" rel="icon">
   <link href="{% static 'website/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
 
@@ -52,7 +52,7 @@
         <span></span>
         <span></span>
       </button>
-      <a class="navbar-brand text-brand" href="index.html">Your<span class="color-b">Caravans</span></a>
+      <a class="navbar-brand text-brand" href="{% url 'website:home-page' %}">Your<span class="color-b">Caravans</span></a>
       <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
         data-target="#navbarTogglerDemo01" aria-expanded="false">
         <span class="fa fa-search" aria-hidden="true"></span>
@@ -106,7 +106,8 @@
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
               <li><a class="dropdown-item" href="{% url 'website:all-caravans' %}">control Caravans & appontment</a></li>
               <li><a class="dropdown-item" href="{% url 'website:PendingCaravans' %}">confirm Users Caravan</a></li>
-              <li><a class="dropdown-item" href="#">users control</a></li>
+              <li><a class="dropdown-item" href="{% url 'website:notreadyCaravan' %}">not ready caravan</a></li>
+              
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'website:addcaravanadmin' %}">add caravan</a>
               </li>
@@ -167,7 +168,7 @@
         <div class="col-sm-12 col-md-4">
           <div class="widget-a">
             <div class="w-header-a">
-              <h3 class="w-title-a text-brand">EstateAgency</h3>
+              <h3 class="w-title-a text-brand">YourCaravan</h3>
             </div>
             <div class="w-body-a">
               
@@ -175,9 +176,9 @@
             <div class="w-footer-a">
               <ul class="list-unstyled">
                 <li class="color-a">
-                  <span class="color-text-a">Phone .</span> contact@example.com</li>
+                  <span class="color-text-a">Phone .</span>  05400000</li>
                 <li class="color-a">
-                  <span class="color-text-a">Email .</span> +54 356 945234</li>
+                  <span class="color-text-a">Email .</span>example@example.com</li>
               </ul>
             </div>
           </div>
@@ -185,7 +186,7 @@
         <div class="col-sm-12 col-md-4 section-md-t3">
           <div class="widget-a">
             <div class="w-header-a">
-              <h3 class="w-title-a text-brand">The Company</h3>
+              <h3 class="w-title-a text-brand"></h3>
             </div>
             <div class="w-body-a">
               <div class="w-body-a">
@@ -197,7 +198,7 @@
         <div class="col-sm-12 col-md-4 section-md-t3">
           <div class="widget-a">
             <div class="w-header-a">
-              <h3 class="w-title-a text-brand">International sites</h3>
+              <h3 class="w-title-a text-brand"></h3>
             </div>
             <div class="w-body-a">
               
@@ -212,23 +213,7 @@
       <div class="row">
         <div class="col-md-12">
           <nav class="nav-footer">
-            <ul class="list-inline">
-              <li class="list-inline-item">
-                <a href="#">Home</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">About</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Property</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Blog</a>
-              </li>
-              <li class="list-inline-item">
-                <a href="#">Contact</a>
-              </li>
-            </ul>
+           
           </nav>
           <div class="socials-a">
             <ul class="list-inline">
@@ -260,10 +245,7 @@
             </ul>
           </div>
           <div class="copyright-footer">
-            <p class="copyright color-text-a">
-              &copy; Copyright
-              <span class="color-a">EstateAgency</span> All Rights Reserved.
-            </p>
+            
           </div>
           <div class="credits">
        

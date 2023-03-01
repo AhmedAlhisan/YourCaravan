@@ -13,6 +13,7 @@ import pytz
 # Create your views here.
 
 def homePage(request :HttpRequest):
+    '''each time user sing in system will check if the user investor or not'''
     if request.user.is_authenticated:
         if request.user.groups.filter(name = 'user-Investor').exists():
             check_user_is_investor_or_not = Caravan.objects.filter(owner = request.user)
@@ -28,14 +29,23 @@ def homePage(request :HttpRequest):
     
     return render(request , 'website/home.html')
 
+def caravanNotReadyAdmin(request : HttpRequest):
+    if request.user.is_staff:
+        all_carvans = Caravan.objects.filter(carvan_status = False , owner = request.user)
+        return render(request , 'website/notReadyCaravanListForAdmin.html', {'all_carvans':all_carvans})
+    return redirect('account:login') 
+
+
 def caravanList(request :HttpRequest):
-    
+    '''show only caravan that ready for rent '''
     if 'search' in request.GET:
-        all_carvans = Caravan.objects.filter(name__contains=request.GET["search"]).filter(carvan_status = True)
+        all_carvans = Caravan.objects.filter(name__contains=request.GET["search"],carvan_status = True)
     else:
         all_carvans = Caravan.objects.filter(carvan_status = True)
         
     return render(request , 'website/caravan-grid.html' , {'all_carvans':all_carvans})
+
+
 
 def addCaravanAdmin(request :HttpRequest):
     '''this function will allow admin to add th caravan directly without confirmation'''
@@ -96,23 +106,28 @@ def bookCaravan(request :HttpRequest , caravan_id):
              
             assigend_caravan = Caravan.objects.get(id=caravan_id)
             new_book = Booking(bookinUser = request.user , caravan = assigend_caravan ,note=request.POST['Note'],booking_date = request.POST['booking_date'] )
-            convert_date_from_string_to_date=datetime.strptime(new_book.booking_date , '%Y-%m-%d')
-            print(convert_date_from_string_to_date)
+            
+          
             print(datetime.today())
+            if request.POST.get('booking_date',True):
+
             
-            if convert_date_from_string_to_date < datetime.today():
-                messages.success(request , 'soory chosee valid date')
-                return render(request,'website/book-caravan.html' , {'assigend_caravan':assigend_caravan})
-            
-            if Booking.objects.filter(booking_date = request.POST['booking_date']) :
-                messages.success(request , 'soory chose another date and time')
-                return render(request,'website/book-caravan.html',{'assigend_caravan':assigend_caravan})
+                if datetime.strptime(new_book.booking_date , '%Y-%m-%d') < datetime.today():
+                    messages.success(request , 'soory chosee valid date')
+                    return render(request,'website/book-caravan.html' , {'assigend_caravan':assigend_caravan})
+                
+                if Booking.objects.filter(booking_date = request.POST['booking_date'], caravan=assigend_caravan).exists() :
+                    messages.success(request , 'soory chose another date and time')
+                    return render(request,'website/book-caravan.html',{'assigend_caravan':assigend_caravan})
 
 
-            else:    
-                new_book.save()
-                messages.success(request, 'Your booking is succesfuly Done , Thank you ')
-                return redirect('website:showBook')
+                else:    
+                    new_book.save()
+                    messages.success(request, 'Your booking is succesfuly Done , Thank you ')
+                    return redirect('website:showBook')
+            else:
+                messages.success(request, 'booking date must be not empty ')
+                return render(request,'website/book-caravan.html',{'assigend_caravan':assigend_caravan})    
             
             
    
@@ -170,7 +185,8 @@ def deleteCaravan(request: HttpRequest , caravan_id):
             selected_caraven = Caravan.objects.get(id=caravan_id)
             selected_caraven.delete()   
             messages.success(request , 'selected Caravan , deleted succesfuly')
-            return redirect('website:all-caravans')   
+            return redirect('website:all-caravans') 
+        return redirect('account:login')  
 
 def showNeedConfirmationCaravans(request : HttpRequest):
     '''this function will show all caravans poted by users , and admin need to confirm this caravans to show four public'''
@@ -184,6 +200,7 @@ def showSelctedCarvanDetailsByAdminToConfirm(request : HttpRequest , caravan_id)
     if request.user.is_staff:
         assigend_caravan = Caravan.objects.get(id = caravan_id)
         return render(request , 'website/showSelctedCarvanDetailsByAdminToConfirm.html' , {'assigend_caravan':assigend_caravan} )
+    return redirect('account:login')
 
 
 def confirmCaravan(request : HttpRequest , caravan_id):
@@ -200,6 +217,7 @@ def confirmCaravan(request : HttpRequest , caravan_id):
          )
         messages.success(request , 'caravan Status is now Active and accepted')
         return redirect('website:all-caravans')
+    return redirect('account:login')
     
 
 def rejectCaravan(request : HttpRequest , caravan_id):
@@ -207,6 +225,7 @@ def rejectCaravan(request : HttpRequest , caravan_id):
     if request.user.is_staff:
         assigend_caravan  =Caravan.objects.get(id=caravan_id)
         assigend_caravan.delete()
+        
         is_user_have_another_caravar =Caravan.objects.filter(owner = assigend_caravan.owner)  #here i will check if the user not have any caravan i will remove him from investor group
         if is_user_have_another_caravar:
             pass
@@ -222,13 +241,14 @@ def rejectCaravan(request : HttpRequest , caravan_id):
         messages.success(request , 'caravan status is Un-Active and rejected' )
 
         return redirect('website:all-caravans')
+    return redirect('account:login')
 
 
 def showCaravanStatusUser(request : HttpRequest):
-    
-    inestor_user_caravan = Caravan.objects.filter(  owner = request.user.id)
-    return render(request , 'website/userAddCaravanStatus.html' , {'inestor_user_caravan':inestor_user_caravan})
-
+    if request.user.is_authenticated:
+        inestor_user_caravan = Caravan.objects.filter(  owner = request.user.id)
+        return render(request , 'website/userAddCaravanStatus.html' , {'inestor_user_caravan':inestor_user_caravan})
+    return redirect('account:login')
 def adminManagAllCravanBook(request : HttpRequest , caravan_id):
     if request.user.is_staff:
         assigend_caravan = Caravan.objects.get(id = caravan_id)
@@ -256,15 +276,18 @@ def adminUpdateingBook(request : HttpRequest , book_id):
             messages.success(request , 'book has been updated successfuly')
             return redirect('website:all-caravans')
         return render(request , 'website/adminUpdateBook.html' , {'assigend_book':assigend_book})
+    return redirect('account:login')
     
 def showUserCaravanIsBookStatus(request:HttpRequest , carvan_id ):
     '''this function will help users who ivest their carvans to know the status of booking  ''' 
-    is_booked=Booking.objects.filter(caravan = carvan_id)
-    
-    d = datetime.today()
-    timezone = pytz.timezone("UTC")
-    now = timezone.localize(d)
-    return render(request , 'website/showusersCaravanBookStatus.html',{'is_booked':is_booked , 'now':now  })  
+    if request.user.is_authenticated:
+        is_booked=Booking.objects.filter(caravan = carvan_id)
+        
+        d = datetime.today()
+        timezone = pytz.timezone("UTC")
+        now = timezone.localize(d)
+        return render(request , 'website/showusersCaravanBookStatus.html',{'is_booked':is_booked , 'now':now  })
+    return redirect('account:login')  
 
 def aboutUs (request : HttpRequest):
     if request.method=='POST':
@@ -284,6 +307,8 @@ def aboutUs (request : HttpRequest):
             return redirect('account:login')    
 
     return render(request , 'website/about-us.html')
+
+
     
 
     

@@ -23,6 +23,7 @@ urlpatterns = [
     path('adminManagAllCravanBook/<caravan_id>',views.adminManagAllCravanBook , name='adminManageBook'),
     path('deleteBookingByAdmin/<book_id>',views.adminDeleteBooking , name='deleteBookingAdmin'),
     path('updateBookingByAdmin/<book_id>',views.adminUpdateingBook , name='updatingBooking'),
+    path('notreadyCaravan/',views.caravanNotReadyAdmin , name='notreadyCaravan'),
     #investor user
     path('addCaravanUser/' , views.addCaravanuser , name='addcaravanuser'),
     path('showCaravanStatusUser' , views.showCaravanStatusUser , name='showCaravanStatusUser'),
